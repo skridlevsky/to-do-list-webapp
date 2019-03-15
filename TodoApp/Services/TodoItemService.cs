@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TodoApp.Data;
 using TodoApp.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace TodoApp.Services
 {
@@ -21,12 +22,11 @@ namespace TodoApp.Services
         /// Returns array of items
         /// </summary>
         /// <returns>To-do list items</returns>
-        public async Task<TodoItem[]> GetIncompleteItemsAsync()
+        public async Task<TodoItem[]> GetIncompleteItemsAsync(IdentityUser user)
         {
-            var items = await _context.Items
-                .Where(x => x.IsDone == false)
+            return await _context.Items
+                .Where(x => x.IsDone == false && x.UserId == user.Id)
                 .ToArrayAsync();
-            return items;
         }
 
         /// <summary>
@@ -34,11 +34,12 @@ namespace TodoApp.Services
         /// </summary>
         /// <param name="newItem">New item that is being added to the list</param>
         /// <returns>Success / failure</returns>
-        public async Task<bool> AddItemAsync(TodoItem newItem)
+        public async Task<bool> AddItemAsync(TodoItem newItem, IdentityUser user)
         {
             newItem.Id = Guid.NewGuid();
             newItem.IsDone = false;
             newItem.DueAt = DateTimeOffset.Now.AddDays(3);
+            newItem.UserId = user.Id;
 
             _context.Items.Add(newItem);
 
@@ -51,10 +52,10 @@ namespace TodoApp.Services
         /// </summary>
         /// <param name="id">GUID of checked item</param>
         /// <returns>Success / failure</returns>
-        public async Task<bool> MarkDoneAsync(Guid id)
+        public async Task<bool> MarkDoneAsync(Guid id, IdentityUser user)
         {
             var item = await _context.Items
-                .Where(x => x.Id == id)
+                .Where(x => x.Id == id && x.UserId == user.Id)
                 .SingleOrDefaultAsync();
 
             if (item == null) return false;
