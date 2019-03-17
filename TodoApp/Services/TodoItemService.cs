@@ -30,6 +30,17 @@ namespace TodoApp.Services
         }
 
         /// <summary>
+        /// Returns array of items
+        /// </summary>
+        /// <returns>To-do list items</returns>
+        public async Task<TodoItem[]> GetCompleteItemsAsync(IdentityUser user)
+        {
+            return await _context.Items
+                .Where(x => x.IsDone == true && x.UserId == user.Id)
+                .ToArrayAsync();
+        }
+
+        /// <summary>
         /// An action that handles adding new items to the to-do list
         /// </summary>
         /// <param name="newItem">New item that is being added to the list</param>
@@ -38,7 +49,6 @@ namespace TodoApp.Services
         {
             newItem.Id = Guid.NewGuid();
             newItem.IsDone = false;
-            newItem.DueAt = DateTimeOffset.Now.AddDays(3);
             newItem.UserId = user.Id;
 
             _context.Items.Add(newItem);

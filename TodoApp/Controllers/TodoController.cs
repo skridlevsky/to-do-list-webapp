@@ -22,6 +22,10 @@ namespace AspNetCoreTodo.Controllers
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Homepage
+        /// </summary>
+        /// <returns>Items list</returns>
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.GetUserAsync(User);
@@ -29,6 +33,26 @@ namespace AspNetCoreTodo.Controllers
 
             var items = await _todoItemService
                 .GetIncompleteItemsAsync(currentUser);
+
+            var model = new TodoViewModel()
+            {
+                Items = items
+            };
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// History of completed to-dos
+        /// </summary>
+        /// <returns>Completed to-do list items</returns>
+        public async Task<IActionResult> History()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Challenge();
+
+            var items = await _todoItemService
+                .GetCompleteItemsAsync(currentUser);
 
             var model = new TodoViewModel()
             {

@@ -1,56 +1,173 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+﻿/* Space out content a bit */
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 }
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+    padding-right: 1rem;
+    padding-left: 1rem;
 }
+
+/* Custom page header */
+.header {
+    padding-bottom: 1rem;
+    border-bottom: .05rem solid #e5e5e5;
+}
+    /* Make the masthead heading the same height as the navigation */
+    .header h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 3rem;
+    }
+
+/* Custom page footer */
+.footer {
+    padding-top: 1.5rem;
+    color: #777;
+    border-top: .05rem solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 48em) {
+    .container {
+        max-width: 46rem;
+    }
+}
+
+.container-narrow > hr {
+    margin: 2rem 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+    text-align: center;
+    border-bottom: .05rem solid #e5e5e5;
+}
+
+    .jumbotron .btn {
+        padding: .75rem 1.5rem;
+        font-size: 1.5rem;
+    }
+
+    .jumbotron .
+
+/* Supporting marketing content */
+.marketing {
+    margin: 3rem 0;
+}
+
+    .marketing p + h4 {
+        margin-top: 1.5rem;
+    }
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 48em) {
+    /* Remove the padding we set earlier */
+    .header,
+    .marketing,
+    .footer {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 2rem;
+    }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
+}
+
+table tr.done {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.add-item-form {
+    margin-bottom: 30px;
+}
+
+    .add-item-form input {
+        border-radius: 0.5em;
+        padding: 5px;
+        margin: 5px;
+                        }
+
+    .add-item-form .btn {
+        border-radius: 0.5em;
+        padding: 8px 50px 8px 50px;
+        margin-bottom: 3px;
+    }
+
+.check {
+    cursor: pointer;
+    position: relative;
+    margin: auto;
+    width: 18px;
+    height: 18px;
+    -webkit-tap-highlight-color: transparent;
+    transform: translate3d(0, 0, 0);
+}
+
+    .check:before {
+        content: "";
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(34,50,84,0.03);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .check svg {
+        position: relative;
+        z-index: 1;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke: #c8ccd4;
+        stroke-width: 1.5;
+        transform: translate3d(0, 0, 0);
+        transition: all 0.2s ease;
+    }
+
+        .check svg path {
+            stroke-dasharray: 60;
+            stroke-dashoffset: 0;
+        }
+
+        .check svg polyline {
+            stroke-dasharray: 22;
+            stroke-dashoffset: 66;
+        }
+
+    .check:hover:before {
+        opacity: 1;
+    }
+
+    .check:hover svg {
+        stroke: #4285f4;
+    }
+
+#cbx:checked + .check svg {
+    stroke: #4285f4;
+}
+
+    #cbx:checked + .check svg path {
+        stroke-dashoffset: 60;
+        transition: all 0.3s linear;
+    }
+
+    #cbx:checked + .check svg polyline {
+        stroke-dashoffset: 42;
+        transition: all 0.2s linear;
+        transition-delay: 0.15s;
+    }
